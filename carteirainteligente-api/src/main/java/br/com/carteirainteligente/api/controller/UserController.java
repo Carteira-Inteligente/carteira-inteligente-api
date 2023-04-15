@@ -2,7 +2,12 @@ package br.com.carteirainteligente.api.controller;
 
 import br.com.carteirainteligente.api.model.User;
 import br.com.carteirainteligente.api.service.UserService;
+import br.com.carteirainteligente.api.validator.UserValidator;
+import io.micrometer.core.instrument.config.validate.Validated;
+import io.micrometer.core.instrument.config.validate.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +18,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserValidator userValidator;
 
     @GetMapping
     public List<User> listUsers() {
@@ -25,17 +33,22 @@ public class UserController {
     }
 
     @PostMapping
-    public User saveUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public ResponseEntity<?> saveUser(@RequestBody User user, BindingResult result) {
+        userValidator.validate(user, result);
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().body(result.getAllErrors());
+        }
+        User savedUser = userService.saveUser(user);
+        return ResponseEntity.ok(savedUser);
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
         return userService.updateUser(id, user);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+        return userService.deleteUser(id);
     }
 }
