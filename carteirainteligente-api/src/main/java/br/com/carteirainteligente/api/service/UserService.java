@@ -41,14 +41,14 @@ public class UserService {
         return ResponseEntity.notFound().build();
     }
 
-    public ResponseEntity<User> deleteUser(Long id) {
+    public User deleteUser(Long id) {
         User existingUser = userRepository.findById(id).orElse(null);
 
         if(existingUser != null) {
             userRepository.deleteById(id);
-            return ResponseEntity.ok(existingUser);
+            return existingUser;
         }
 
-        return ResponseEntity.notFound().build();
+        return null;
     }
 }

@@ -1,12 +1,12 @@
 package br.com.carteirainteligente.api.enums;
 
 public enum Period {
-    UNICO("UNICO"),
-    SEMANAL("SEMANAL"),
-    MENSAL("MENSAL"),
-    TRIMESTRAL("TRIMESTRAL"),
-    SEMESTRAL("SEMESTRAL"),
-    ANUAL("ANUAL");
+    UNIQUE("UNIQUE"),
+    WEEKLY("WEEKLY"),
+    MONTHLY("MONTHLY"),
+    QUARTERLY("QUARTERLY"),
+    SEMESTERLY("SEMESTERLY"),
+    ANNUAL("ANNUAL");
 
     private final String periodValue;
 
