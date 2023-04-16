@@ -3,7 +3,6 @@ package br.com.carteirainteligente.api.service;
 import br.com.carteirainteligente.api.model.User;
 import br.com.carteirainteligente.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public ResponseEntity<User> updateUser(Long id, User user) {
+    public User updateUser(Long id, User user) {
         User existingUser = userRepository.findById(id).orElse(null);
 
         if(existingUser != null) {
@@ -35,10 +34,10 @@ public class UserService {
             existingUser.setPassword(user.getPassword());
 
             userRepository.save(existingUser);
-            return ResponseEntity.ok(existingUser);
+            return existingUser;
         }
 
-        return ResponseEntity.notFound().build();
+        return null;
     }
 
     public User deleteUser(Long id) {

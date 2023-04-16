@@ -4,16 +4,17 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "category_group")
+public class CategoryGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
-    private String email;
-    private String password;
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+    private String description;
+    private String icon;
 }

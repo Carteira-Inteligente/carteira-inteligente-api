@@ -3,8 +3,6 @@ package br.com.carteirainteligente.api.controller;
 import br.com.carteirainteligente.api.model.User;
 import br.com.carteirainteligente.api.service.UserService;
 import br.com.carteirainteligente.api.validator.UserValidator;
-import io.micrometer.core.instrument.config.validate.Validated;
-import io.micrometer.core.instrument.config.validate.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -23,13 +21,15 @@ public class UserController {
     private UserValidator userValidator;
 
     @GetMapping
-    public List<User> listUsers() {
-        return userService.listUsers();
+    public ResponseEntity<List<User>> listUsers() {
+        List<User> users = userService.listUsers();
+        return users.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
-        return userService.getUser(id);
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        User user = userService.getUser(id);
+        return user == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(user);
     }
 
     @PostMapping
@@ -49,18 +49,13 @@ public class UserController {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
 
-        ResponseEntity<User> updatedUser = userService.updateUser(id, user);
-        return updatedUser;
+        User updatedUser = userService.updateUser(id, user);
+        return updatedUser == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(updatedUser);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<User> deleteUser(@PathVariable Long id) {
         User deletedUser = userService.deleteUser(id);
-
-        if (deletedUser != null) {
-            return ResponseEntity.ok(deletedUser);
-        }
-
-        return ResponseEntity.notFound().build();
+        return deletedUser == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(deletedUser);
     }
 }
