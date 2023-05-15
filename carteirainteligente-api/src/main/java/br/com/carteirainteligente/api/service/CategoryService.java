@@ -18,22 +18,22 @@ public class CategoryService {
     @Autowired
     UserRepository userRepository;
 
-    public List<Category> listCategoryGroups() {
+    public List<Category> listCategories() {
         return categoryRepository.findAll();
     }
 
-    public Category getCategoryGroup(Long id) {
+    public Category getCategory(Long id) {
         return categoryRepository.findById(id).orElse(null);
     }
 
-    public Category saveCategoryGroup(Category category) {
+    public Category saveCategory(Category category) {
         User user = userRepository.findById(category.getUser().getId()).orElse(null);
 
         category.setUser(user);
         return categoryRepository.save(category);
     }
 
-    public Category updateCategoryGroup(Long id, Category category) {
+    public Category updateCategory(Long id, Category category) {
         Category existingCategory = categoryRepository.findById(id).orElse(null);
         User user = userRepository.findById(category.getUser().getId()).orElse(null);
 
@@ -50,7 +50,7 @@ public class CategoryService {
         return null;
     }
 
-    public Category deleteCategoryGroup(Long id) {
+    public Category deleteCategory(Long id) {
         Category existingCategory = categoryRepository.findById(id).orElse(null);
 
         if(existingCategory != null) {

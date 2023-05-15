@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/category-group")
+@RequestMapping("/api/category")
 public class CategoryController {
 
     @Autowired
@@ -21,41 +21,41 @@ public class CategoryController {
     private CategoryValidator categoryValidator;
 
     @GetMapping
-    public ResponseEntity<List<Category>> listCategoryGroups() {
-        List<Category> categories = categoryService.listCategoryGroups();
+    public ResponseEntity<List<Category>> listCategorys() {
+        List<Category> categories = categoryService.listCategories();
         return categories.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(categories);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategoryGroup(@PathVariable Long id) {
-        Category category = categoryService.getCategoryGroup(id);
+    public ResponseEntity<Category> getCategory(@PathVariable Long id) {
+        Category category = categoryService.getCategory(id);
         return category == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(category);
     }
 
     @PostMapping
-    public ResponseEntity<?> saveCategoryGroup(@RequestBody Category category, BindingResult result) {
+    public ResponseEntity<?> saveCategory(@RequestBody Category category, BindingResult result) {
         categoryValidator.validate(category, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
-        Category savedCategory = categoryService.saveCategoryGroup(category);
+        Category savedCategory = categoryService.saveCategory(category);
         return ResponseEntity.ok(savedCategory);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCategoryGroup(@PathVariable Long id, @RequestBody Category category, BindingResult result) {
+    public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody Category category, BindingResult result) {
         categoryValidator.validate(category, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
 
-        Category updatedCategory = categoryService.updateCategoryGroup(id, category);
+        Category updatedCategory = categoryService.updateCategory(id, category);
         return updatedCategory == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(updatedCategory);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Category> deleteCategoryGroup(@PathVariable Long id) {
-        Category deletedCategory = categoryService.deleteCategoryGroup(id);
+    public ResponseEntity<Category> deleteCategory(@PathVariable Long id) {
+        Category deletedCategory = categoryService.deleteCategory(id);
         return deletedCategory == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(deletedCategory);
     }
 }

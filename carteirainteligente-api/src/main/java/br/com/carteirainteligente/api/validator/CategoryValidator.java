@@ -23,17 +23,17 @@ public class CategoryValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         Category category = (Category) obj;
         if (category.getUser() == null) {
-            errors.rejectValue("user", "category.group.user.mandatory", "Usuário obrigatório");
+            errors.rejectValue("user", "category.user.mandatory", "Usuário obrigatório");
         } else if (category.getUser().getId() == null) {
-            errors.rejectValue("user", "category.group.user.id.mandatory", "Id usuário obrigatório");
+            errors.rejectValue("user", "category.user.id.mandatory", "Id usuário obrigatório");
         } else if (userRepository.findById(category.getUser().getId()).orElse(null) == null) {
-            errors.rejectValue("user", "category.group.user.not.found", "Usuário não encontrado");
+            errors.rejectValue("user", "category.user.not.found", "Usuário não encontrado");
         }
         if (StringUtils.isBlank(category.getDescription())) {
-            errors.rejectValue("description", "category.group.description.mandatory", "Descrição obrigatória");
+            errors.rejectValue("description", "category.description.mandatory", "Descrição obrigatória");
         }
         if (StringUtils.isBlank(category.getIcon())) {
-            errors.rejectValue("icon", "category.group.icon.mandatory", "Ícone obrigatório");
+            errors.rejectValue("icon", "category.icon.mandatory", "Ícone obrigatório");
         }
     }
 }
