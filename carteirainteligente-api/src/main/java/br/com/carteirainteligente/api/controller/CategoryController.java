@@ -21,7 +21,7 @@ public class CategoryController {
     private CategoryValidator categoryValidator;
 
     @GetMapping
-    public ResponseEntity<List<Category>> listCategorys() {
+    public ResponseEntity<List<Category>> listCategories() {
         List<Category> categories = categoryService.listCategories();
         return categories.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(categories);
     }

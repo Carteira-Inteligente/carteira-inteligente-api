@@ -1,6 +1,6 @@
 package br.com.carteirainteligente.api.enums;
 
-public enum Type {
+public enum TypeEnum {
     ACCOUNT("ACCOUNT"),
     CREDIT_CARD("CREDIT_CARD"),
     DEBIT_CARD("DEBIT_CARD"),
@@ -8,7 +8,7 @@ public enum Type {
 
     private final String typeValue;
 
-    Type(String typeValue) {
+    TypeEnum(String typeValue) {
         this.typeValue = typeValue;
     }
 
