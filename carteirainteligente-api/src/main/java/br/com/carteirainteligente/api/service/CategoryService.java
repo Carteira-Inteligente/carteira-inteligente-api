@@ -42,6 +42,8 @@ public class CategoryService {
             existingCategory.setUser(user);
             existingCategory.setDescription(category.getDescription());
             existingCategory.setIcon(category.getIcon());
+            existingCategory.setColor(category.getColor());
+            existingCategory.setPath(category.getPath());
 
             categoryRepository.save(existingCategory);
             return existingCategory;
