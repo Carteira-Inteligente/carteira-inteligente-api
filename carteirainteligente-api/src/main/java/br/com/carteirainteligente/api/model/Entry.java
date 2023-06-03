@@ -22,7 +22,7 @@ public class Entry {
     @JoinColumn(name = "id_category")
     private Category category;
     @ManyToOne
-    @JoinColumn(name = "id_category")
+    @JoinColumn(name = "id_payment_type")
     private PaymentType paymentType;
     private String description;
     private PeriodEnum period;

@@ -20,6 +20,7 @@ public class Category {
     private Budget budget;
     private String description;
     private String icon;
-    private String path;
-    private String color;
+    private String pathIcon;
+    private String iconColor;
+    private String backgroundColor;
 }
