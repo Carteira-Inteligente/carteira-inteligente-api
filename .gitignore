@@ -61,4 +61,4 @@ out/
 hs_err_pid*
 
 
-!**carteirainteligente-api/src/main/resources/application.properties
+carteirainteligente-api/src/main/resources/application.properties
