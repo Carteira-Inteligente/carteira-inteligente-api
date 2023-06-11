@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/chatgpt")
-public class ChatGPTAPI {
+public class ChatGPTController {
 
     @GetMapping
     public void listEntries() {
