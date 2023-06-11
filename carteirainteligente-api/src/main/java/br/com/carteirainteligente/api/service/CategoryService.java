@@ -41,7 +41,6 @@ public class CategoryService {
 
             existingCategory.setUser(user);
             existingCategory.setDescription(category.getDescription());
-            existingCategory.setIcon(category.getIcon());
             existingCategory.setBackgroundColor(category.getBackgroundColor());
             existingCategory.setIconColor(category.getIconColor());
             existingCategory.setPathIcon(category.getPathIcon());

@@ -32,7 +32,7 @@ public class CategoryValidator implements Validator {
         if (StringUtils.isBlank(category.getDescription())) {
             errors.rejectValue("description", "category.description.mandatory", "Descrição obrigatória");
         }
-        if (StringUtils.isBlank(category.getIcon())) {
+        if (StringUtils.isBlank(category.getPathIcon())) {
             errors.rejectValue("icon", "category.icon.mandatory", "Ícone obrigatório");
         }
     }

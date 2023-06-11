@@ -19,8 +19,7 @@ public class Category {
     @JoinColumn(name = "id_budget")
     private Budget budget;
     private String description;
-    private String icon;
     private String pathIcon;
-    private String iconColor;
-    private String backgroundColor;
+    private Long iconColor;
+    private Long backgroundColor;
 }
