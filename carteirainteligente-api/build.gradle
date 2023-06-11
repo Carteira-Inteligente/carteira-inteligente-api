@@ -27,6 +27,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
 	implementation 'org.hibernate:hibernate-core:6.1.7.Final'
+	//implementation 'com.azure:azure-spring-data-cosmos:3.30.0'
 	implementation 'org.postgresql:postgresql:42.5.4'
 	implementation 'com.lilittlecat:chatgpt:1.0.2'
 	compileOnly 'org.springframework.boot:spring-boot-devtools:3.0.2'
