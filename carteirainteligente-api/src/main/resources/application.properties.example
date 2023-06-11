@@ -26,3 +26,11 @@ server.port = 8090
 
 # Allows Hibernate to generate SQL optimized for a particular DBMS
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+  spring.datasource.hikari.connection-test-query=SELECT 1 FROM DUAL
+  spring.datasource.hikari.connection-timeout=600000
+  spring.datasource.hikari.maximum-pool-size=500
+  spring.datasource.hikari.max-lifetime=1800000
+  spring.datasource.hikari.minimum-idle=20
+  spring.datasource.hikari.validation-timeout=3000
+  spring.datasource.hikari.idle-timeout=60000
