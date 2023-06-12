@@ -7,14 +7,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "category_artificial_intelligence")
-public class CategoryArtificialIntelligence {
+@Table(name = "automatic_category")
+public class AutomaticCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "id_category")
     private Category category;
-    private String question;
-    private String answer;
+    private String input;
+    private String response;
 }
