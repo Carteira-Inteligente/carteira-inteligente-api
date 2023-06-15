@@ -4,7 +4,6 @@ import br.com.carteirainteligente.api.enums.PeriodEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Date;
 
 @Getter
@@ -26,6 +25,7 @@ public class Entry {
     private PaymentType paymentType;
     private String description;
     private PeriodEnum period;
+    @Column(name = "paidvalue", scale = 2, precision = 20)
     private Long paidValue;
     private Date paidDate;
     private Boolean paid;

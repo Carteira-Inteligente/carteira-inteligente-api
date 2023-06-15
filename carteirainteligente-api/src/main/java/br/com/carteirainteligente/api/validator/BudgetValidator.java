@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import java.math.BigDecimal;
 
 @Component
 public class BudgetValidator implements Validator {
@@ -41,7 +42,7 @@ public class BudgetValidator implements Validator {
         }
         if (budget.getValue() == null) {
             errors.rejectValue("value", "budget.value.mandatory", "Valor obrigatório");
-        } else if (budget.getValue().compareTo(0L)<0) {
+        } else if (budget.getValue().compareTo(BigDecimal.ZERO)<0) {
             errors.rejectValue("value", "budget.value.negative", "Valor não pode ser negativo");
         }
     }

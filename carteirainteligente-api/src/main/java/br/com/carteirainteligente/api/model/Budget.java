@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @Entity
@@ -19,6 +21,7 @@ public class Budget {
     @JoinColumn(name = "id_category")
     @NotNull
     private Category category;
-    private Long value;
+    @Column(name = "value", scale = 2, precision = 20)
+    private BigDecimal value;
     private String description;
 }
