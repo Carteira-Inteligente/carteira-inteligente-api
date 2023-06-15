@@ -15,9 +15,6 @@ public class Category {
     @ManyToOne
     @JoinColumn(name = "id_user")
     private User user;
-    @OneToOne
-    @JoinColumn(name = "id_budget")
-    private Budget budget;
     private String description;
     private String pathIcon;
     private Long iconColor;
