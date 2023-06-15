@@ -6,10 +6,7 @@ import br.com.carteirainteligente.api.validator.AutomaticCategoryValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/automatic-category")
@@ -21,9 +18,18 @@ public class AutomaticCategoryController {
     @Autowired
     AutomaticCategoryValidator automaticCategoryValidator;
 
+    @PostMapping
+    public ResponseEntity<?> saveAutomaticCategory(@RequestBody AutomaticCategory automaticCategory) {
+        AutomaticCategory savedAutomaticCategory = automaticCategoryService.saveAutomaticCategory(automaticCategory);
+        return ResponseEntity.ok(savedAutomaticCategory);
+    }
+
     @GetMapping
     public ResponseEntity<?> getAutomaticCategory(@RequestBody String input, BindingResult result) {
-        automaticCategoryValidator.validate(input, result);
+        AutomaticCategory automaticCategoryInput = new AutomaticCategory();
+        automaticCategoryInput.setInput(input);
+
+        automaticCategoryValidator.validate(automaticCategoryInput, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }

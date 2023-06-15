@@ -1,6 +1,8 @@
 package br.com.carteirainteligente.api.validator;
 
 import br.com.carteirainteligente.api.model.AutomaticCategory;
+import br.com.carteirainteligente.api.model.Budget;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -15,7 +17,8 @@ public class AutomaticCategoryValidator implements Validator {
 
     @Override
     public void validate(Object obj, Errors errors) {
-        if (obj == null || !obj.equals("")) {
+        AutomaticCategory automaticCategory = (AutomaticCategory) obj;
+        if (StringUtils.isBlank(automaticCategory.getInput())) {
             errors.rejectValue("automatic.category", "automatic.category.input.mandatory", "Input obrigatório");
         }
     }
