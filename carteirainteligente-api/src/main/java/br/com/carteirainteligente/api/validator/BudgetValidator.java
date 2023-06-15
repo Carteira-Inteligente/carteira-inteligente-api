@@ -9,8 +9,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import java.util.List;
-
 @Component
 public class BudgetValidator implements Validator {
 
@@ -46,9 +44,5 @@ public class BudgetValidator implements Validator {
         } else if (budget.getValue().compareTo(0L)<0) {
             errors.rejectValue("value", "budget.value.negative", "Valor não pode ser negativo");
         }
-        /*if (budget.getCategory() != null) {
-            List<Budget> otherBudgets = budgetRepository.findAllByCategory(budget.getCategory().getId());
-
-        }*/
     }
 }

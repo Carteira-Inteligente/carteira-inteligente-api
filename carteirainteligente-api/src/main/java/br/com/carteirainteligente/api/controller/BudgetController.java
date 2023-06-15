@@ -5,10 +5,10 @@ import br.com.carteirainteligente.api.service.BudgetService;
 import br.com.carteirainteligente.api.validator.BudgetValidator;
 import kong.unirest.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -39,7 +39,12 @@ public class BudgetController {
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
-        Budget savedBudget = budgetService.saveBudget(budget);
+        Budget savedBudget = null;
+        try {
+            savedBudget = budgetService.saveBudget(budget);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A categoria vinculada já possui um orçamento");
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBudget);
     }
 
