@@ -3,6 +3,7 @@ package br.com.carteirainteligente.api.controller;
 import br.com.carteirainteligente.api.model.AutomaticCategory;
 import br.com.carteirainteligente.api.service.AutomaticCategoryService;
 import br.com.carteirainteligente.api.validator.AutomaticCategoryValidator;
+import kong.unirest.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -21,7 +22,7 @@ public class AutomaticCategoryController {
     @PostMapping
     public ResponseEntity<?> saveAutomaticCategory(@RequestBody AutomaticCategory automaticCategory) {
         AutomaticCategory savedAutomaticCategory = automaticCategoryService.saveAutomaticCategory(automaticCategory);
-        return ResponseEntity.ok(savedAutomaticCategory);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedAutomaticCategory);
     }
 
     @GetMapping

@@ -40,7 +40,7 @@ public class EntryController {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
         Entry savedEntry = entryService.saveEntry(entry);
-        return ResponseEntity.ok(savedEntry);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedEntry);
     }
 
     @PutMapping("/{id}")

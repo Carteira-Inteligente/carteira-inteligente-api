@@ -40,7 +40,7 @@ public class CategoryController {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
         Category savedCategory = categoryService.saveCategory(category);
-        return ResponseEntity.ok(savedCategory);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
     }
 
     @PutMapping("/{id}")

@@ -40,7 +40,7 @@ public class UserController {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
         User savedUser = userService.saveUser(user);
-        return ResponseEntity.ok(savedUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PutMapping("/{id}")

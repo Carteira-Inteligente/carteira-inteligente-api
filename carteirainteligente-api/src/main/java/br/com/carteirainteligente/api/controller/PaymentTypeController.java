@@ -40,7 +40,7 @@ public class PaymentTypeController {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
         PaymentType savedPaymentType = paymentTypeService.savePaymentType(paymentType);
-        return ResponseEntity.ok(savedPaymentType);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedPaymentType);
     }
 
     @PutMapping("/{id}")

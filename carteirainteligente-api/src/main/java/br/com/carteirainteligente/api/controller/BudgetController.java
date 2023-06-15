@@ -40,7 +40,7 @@ public class BudgetController {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
         Budget savedBudget = budgetService.saveBudget(budget);
-        return ResponseEntity.ok(savedBudget);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedBudget);
     }
 
     @PutMapping("/{id}")
