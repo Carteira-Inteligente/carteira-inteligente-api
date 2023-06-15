@@ -1,11 +1,9 @@
 package br.com.carteirainteligente.api.controller;
 
-import br.com.carteirainteligente.api.model.Category;
 import br.com.carteirainteligente.api.model.PaymentType;
-import br.com.carteirainteligente.api.service.CategoryService;
 import br.com.carteirainteligente.api.service.PaymentTypeService;
-import br.com.carteirainteligente.api.validator.CategoryValidator;
 import br.com.carteirainteligente.api.validator.PaymentTypeValidator;
+import kong.unirest.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -25,8 +23,8 @@ public class PaymentTypeController {
 
     @GetMapping
     public ResponseEntity<List<PaymentType>> listPaymentTypes() {
-        List<PaymentType> categories = paymentTypeService.listPaymentTypes();
-        return categories.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(categories);
+        List<PaymentType> paymentTypes = paymentTypeService.listPaymentTypes();
+        return paymentTypes.isEmpty() ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(paymentTypes) : ResponseEntity.ok(paymentTypes);
     }
 
     @GetMapping("/{id}")

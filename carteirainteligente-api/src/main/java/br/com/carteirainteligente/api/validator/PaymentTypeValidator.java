@@ -1,5 +1,6 @@
 package br.com.carteirainteligente.api.validator;
 
+import br.com.carteirainteligente.api.enums.TypeEnum;
 import br.com.carteirainteligente.api.model.PaymentType;
 import br.com.carteirainteligente.api.repository.UserRepository;
 import io.micrometer.common.util.StringUtils;
@@ -30,7 +31,10 @@ public class PaymentTypeValidator implements Validator {
             errors.rejectValue("user", "paymentType.user.not.found", "Usuário não encontrado");
         }
         if (StringUtils.isBlank(paymentType.getDescription())) {
-            errors.rejectValue("description", "category.description.mandatory", "Descrição obrigatória");
+            errors.rejectValue("description", "payment.type.description.mandatory", "Descrição obrigatória");
+        }
+        if (paymentType.getType() != null && !paymentType.getType().equals(TypeEnum.WALLET) && paymentType.getDescription().equalsIgnoreCase("carteira")) {
+            errors.rejectValue("type", "payment.type.enum.wallet", "Orçamento com essa descrição deve ser obrigatoriamente do tipo Carteira");
         }
     }
 }

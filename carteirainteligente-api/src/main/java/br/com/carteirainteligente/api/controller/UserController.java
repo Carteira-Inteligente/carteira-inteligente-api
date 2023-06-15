@@ -3,6 +3,7 @@ package br.com.carteirainteligente.api.controller;
 import br.com.carteirainteligente.api.model.User;
 import br.com.carteirainteligente.api.service.UserService;
 import br.com.carteirainteligente.api.validator.UserValidator;
+import kong.unirest.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -23,7 +24,7 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<User>> listUsers() {
         List<User> users = userService.listUsers();
-        return users.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(users);
+        return users.isEmpty() ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(users) : ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")

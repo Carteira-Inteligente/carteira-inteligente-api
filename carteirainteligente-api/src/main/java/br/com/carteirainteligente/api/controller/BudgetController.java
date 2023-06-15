@@ -3,6 +3,7 @@ package br.com.carteirainteligente.api.controller;
 import br.com.carteirainteligente.api.model.Budget;
 import br.com.carteirainteligente.api.service.BudgetService;
 import br.com.carteirainteligente.api.validator.BudgetValidator;
+import kong.unirest.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -23,7 +24,7 @@ public class BudgetController {
     @GetMapping
     public ResponseEntity<List<Budget>> listBudgets() {
         List<Budget> budgets = budgetService.listBudgets();
-        return budgets.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(budgets);
+        return budgets.isEmpty() ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(budgets) : ResponseEntity.ok(budgets);
     }
 
     @GetMapping("/{id}")

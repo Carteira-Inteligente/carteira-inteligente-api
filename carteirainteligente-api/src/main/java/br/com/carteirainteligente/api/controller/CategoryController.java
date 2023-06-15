@@ -3,6 +3,7 @@ package br.com.carteirainteligente.api.controller;
 import br.com.carteirainteligente.api.model.Category;
 import br.com.carteirainteligente.api.service.CategoryService;
 import br.com.carteirainteligente.api.validator.CategoryValidator;
+import kong.unirest.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -23,7 +24,7 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<List<Category>> listCategories() {
         List<Category> categories = categoryService.listCategories();
-        return categories.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(categories);
+        return categories.isEmpty() ? ResponseEntity.status(HttpStatus.NOT_FOUND).body(categories) : ResponseEntity.ok(categories);
     }
 
     @GetMapping("/{id}")
