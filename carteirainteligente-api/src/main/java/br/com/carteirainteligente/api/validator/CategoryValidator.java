@@ -1,8 +1,6 @@
 package br.com.carteirainteligente.api.validator;
 
-import br.com.carteirainteligente.api.model.Budget;
 import br.com.carteirainteligente.api.model.Category;
-import br.com.carteirainteligente.api.repository.BudgetRepository;
 import br.com.carteirainteligente.api.repository.UserRepository;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +18,6 @@ public class CategoryValidator implements Validator {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    BudgetRepository budgetRepository;
 
     @Override
     public void validate(Object obj, Errors errors) {
