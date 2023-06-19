@@ -45,6 +45,9 @@ public class EntryValidator implements Validator {
         } else if (entry.getPaidValue().compareTo(BigDecimal.ZERO)<0) {
             errors.rejectValue("paidValue", "entry.paid.value.negative", "Valor não pode ser negativo");
         }
+        if (entry.getDueDate() == null) {
+            errors.rejectValue("dueDate", "entry.due.date.mandatory", "Data de vencimento obrigatória");
+        }
     }
 
     public void validatePatch(Object obj, Errors errors) {
