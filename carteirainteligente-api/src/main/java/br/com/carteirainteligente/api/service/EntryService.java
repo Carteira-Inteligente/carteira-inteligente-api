@@ -55,6 +55,28 @@ public class EntryService {
         return null;
     }
 
+    public Entry updateEntryPatch(Long id, Entry entry) {
+        Entry existingEntry = entryRepository.findById(id).orElse(null);
+
+        User user = null;
+        if (entry.getUser() != null) {
+            user = userRepository.findById(entry.getUser().getId()).orElse(null);
+        }
+
+        if(existingEntry != null) {
+            if (user != null) {
+                existingEntry.setUser(user);
+            }
+            existingEntry.setPaidDate(entry.getPaidDate());
+            existingEntry.setPaid(entry.getPaid());
+
+            entryRepository.save(existingEntry);
+            return existingEntry;
+        }
+
+        return null;
+    }
+
     public Entry deleteEntry(Long id) {
         Entry existingEntry = entryRepository.findById(id).orElse(null);
 

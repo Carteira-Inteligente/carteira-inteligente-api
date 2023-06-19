@@ -54,6 +54,17 @@ public class EntryController {
         return updatedEntry == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(updatedEntry);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateEntryPatch(@PathVariable Long id, @RequestBody Entry entry, BindingResult result) {
+        entryValidator.validatePatch(entry, result);
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().body(result.getAllErrors());
+        }
+
+        Entry updatedEntry = entryService.updateEntryPatch(id, entry);
+        return updatedEntry == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(updatedEntry);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Entry> deleteEntry(@PathVariable Long id) {
         Entry deletedEntry = entryService.deleteEntry(id);

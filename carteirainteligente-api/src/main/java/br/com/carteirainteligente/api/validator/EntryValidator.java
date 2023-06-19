@@ -46,4 +46,14 @@ public class EntryValidator implements Validator {
             errors.rejectValue("paidValue", "entry.paid.value.negative", "Valor não pode ser negativo");
         }
     }
+
+    public void validatePatch(Object obj, Errors errors) {
+        Entry entry = (Entry) obj;
+        if (entry.getPaid() == null) {
+            errors.rejectValue("paid", "entry.paid.mandatory", "Boolean paid obrigatório");
+        }
+        if (entry.getPaidDate() == null) {
+            errors.rejectValue("paidDate", "entry.paid.date.mandatory", "Data de pagamento obrigatório");
+        }
+    }
 }
