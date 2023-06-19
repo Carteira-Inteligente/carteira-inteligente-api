@@ -1,13 +1,14 @@
 package br.com.carteirainteligente.api.validator;
 
 import br.com.carteirainteligente.api.model.Entry;
-import br.com.carteirainteligente.api.model.Entry;
 import br.com.carteirainteligente.api.repository.UserRepository;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
+import java.math.BigDecimal;
 
 @Component
 public class EntryValidator implements Validator {
@@ -41,7 +42,7 @@ public class EntryValidator implements Validator {
         }
         if (entry.getPaidValue() == null) {
             errors.rejectValue("paidValue", "entry.paid.value.mandatory", "Valor obrigatório");
-        } else if (entry.getPaidValue().compareTo(0L)<0) {
+        } else if (entry.getPaidValue().compareTo(BigDecimal.ZERO)<0) {
             errors.rejectValue("paidValue", "entry.paid.value.negative", "Valor não pode ser negativo");
         }
     }

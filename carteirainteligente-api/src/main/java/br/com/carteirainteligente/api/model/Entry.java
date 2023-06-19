@@ -4,6 +4,8 @@ import br.com.carteirainteligente.api.enums.PeriodEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Getter
@@ -26,7 +28,7 @@ public class Entry {
     private String description;
     private PeriodEnum period;
     @Column(name = "paidvalue", scale = 2, precision = 20)
-    private Long paidValue;
+    private BigDecimal paidValue;
     private Date paidDate;
     private Boolean paid;
     private Date dueDate;
