@@ -19,4 +19,5 @@ public class Category {
     private String pathIcon;
     private Long iconColor;
     private Long backgroundColor;
+    private Boolean isDefault;
 }

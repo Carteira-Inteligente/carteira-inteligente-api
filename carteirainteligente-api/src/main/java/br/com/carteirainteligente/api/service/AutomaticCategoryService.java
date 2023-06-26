@@ -9,6 +9,8 @@ import kong.unirest.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AutomaticCategoryService {
 
@@ -34,8 +36,10 @@ public class AutomaticCategoryService {
         String input = jsonObject.getString("input");
         input = input.toUpperCase();
 
+
         AutomaticCategory automaticCategory = automaticCategoryRepository.findTop1ByInput(input);
 
+        requestToAI(input);
         if (automaticCategory != null) {
             return automaticCategory;
         } else {
@@ -61,6 +65,19 @@ public class AutomaticCategoryService {
         }
 
         return null;
+    }
+
+    public String requestToAI(String input) {
+        String request = "Dentre as categorias abaixo, me informe qual a mais adequada ao texto \"" + input + "\". Me responda somente a categoria mais adequada. Caso o texto não se encaixe em nenhuma das categorias listadas, favor definir em \"Outros\": ";
+
+        List<Category> categories = categoryRepository.findByIsDefault(Boolean.TRUE);
+        for (Category c : categories) {
+            request+= "\"" + c.getDescription() + "\"\n";
+            System.out.println(c.getDescription());
+        }
+        System.out.println(request);
+
+        return request;
     }
 
 }

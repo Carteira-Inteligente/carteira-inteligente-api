@@ -1,12 +1,15 @@
 package br.com.carteirainteligente.api.validator;
 
 import br.com.carteirainteligente.api.model.Category;
+import br.com.carteirainteligente.api.repository.CategoryRepository;
 import br.com.carteirainteligente.api.repository.UserRepository;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
+import java.util.List;
 
 @Component
 public class CategoryValidator implements Validator {
@@ -18,6 +21,9 @@ public class CategoryValidator implements Validator {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @Override
     public void validate(Object obj, Errors errors) {
@@ -34,6 +40,22 @@ public class CategoryValidator implements Validator {
         }
         if (StringUtils.isBlank(category.getPathIcon())) {
             errors.rejectValue("icon", "category.icon.mandatory", "Ícone obrigatório");
+        }
+    }
+
+    public void validateSaveAndUpdate(Object obj, Long id, Errors errors) {
+        Category category = (Category) obj;
+        if (category.getId() != null) {
+            category = categoryRepository.findById(id).orElse(null);
+        }
+
+        List<Category> categories = categoryRepository.findByDescription(category.getDescription());
+        if (!categories.isEmpty()) {
+            for (Category c : categories) {
+                if (!c.getId().equals(category.getId())) {
+                    errors.rejectValue("id", "category.exists", "Já existe uma categoria com esta descrição");
+                }
+            }
         }
     }
 }

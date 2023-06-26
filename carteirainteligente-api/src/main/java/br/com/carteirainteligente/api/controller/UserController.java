@@ -36,6 +36,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<?> saveUser(@RequestBody User user, BindingResult result) {
         userValidator.validate(user, result);
+        userValidator.validateSave(user, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
@@ -46,6 +47,7 @@ public class UserController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user, BindingResult result) {
         userValidator.validate(user, result);
+        userValidator.validateUpdate(user, id, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }

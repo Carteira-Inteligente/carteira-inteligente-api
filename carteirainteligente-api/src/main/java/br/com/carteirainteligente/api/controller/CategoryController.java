@@ -36,6 +36,7 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<?> saveCategory(@RequestBody Category category, BindingResult result) {
         categoryValidator.validate(category, result);
+        categoryValidator.validateSaveAndUpdate(category, null, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
@@ -46,6 +47,7 @@ public class CategoryController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody Category category, BindingResult result) {
         categoryValidator.validate(category, result);
+        categoryValidator.validateSaveAndUpdate(category, id, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
