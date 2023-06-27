@@ -22,7 +22,7 @@ jobs:
           java-version: '17'
 
       - name: Build with Gradle
-        run: gradle install
+        run: gradle init
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
