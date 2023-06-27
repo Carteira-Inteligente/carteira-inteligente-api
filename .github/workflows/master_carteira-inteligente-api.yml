@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'carteira-inteligente-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0C3BF245592341D89CEADB7EFA42BEAA }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_94F6F16869B44D81B3F942773EC826C2 }}
           package: '*.jar'
