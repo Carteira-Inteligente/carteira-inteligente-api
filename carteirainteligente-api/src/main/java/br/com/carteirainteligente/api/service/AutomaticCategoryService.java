@@ -5,7 +5,6 @@ import br.com.carteirainteligente.api.model.Category;
 import br.com.carteirainteligente.api.repository.AutomaticCategoryRepository;
 import br.com.carteirainteligente.api.repository.CategoryRepository;
 import com.lilittlecat.chatgpt.offical.ChatGPT;
-import kong.unirest.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,40 +29,35 @@ public class AutomaticCategoryService {
         return automaticCategoryRepository.save(automaticCategory);
     }
 
-    public AutomaticCategory getAutomaticCategory(String inputJson) {
-
-        JSONObject jsonObject = new JSONObject(inputJson);
-        String input = jsonObject.getString("input");
+    public AutomaticCategory getAutomaticCategory(String input) {
         input = input.toUpperCase();
-
 
         AutomaticCategory automaticCategory = automaticCategoryRepository.findTop1ByInput(input);
 
-        requestToAI(input);
         if (automaticCategory != null) {
             return automaticCategory;
         } else {
-            ChatGPT chatGPT = new ChatGPT("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");
-            String response = null;
-            //String response = chatGPT.ask("hello");
-            //System.out.println(response); // will be "\n\nHello! How may I assist you today?"
+            ChatGPT chatGPT = new ChatGPT("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");
+            //String response = null;
+            String response = chatGPT.ask(requestToAI(input));
+            System.out.println(response); // will be "\n\nHello! How may I assist you today?"
 
-            if (response == null || !response.equals("")) {
+            if (response != null && !response.equals("")) {
 
                 Category category = categoryRepository.findTop1ByDescription(response);
 
-                AutomaticCategory newAutomaticCategory = new AutomaticCategory();
-                newAutomaticCategory.setInput(input);
-                newAutomaticCategory.setResponse(response);
-                newAutomaticCategory.setCategory(category);
+                if (category != null) {
+                    AutomaticCategory newAutomaticCategory = new AutomaticCategory();
+                    newAutomaticCategory.setInput(input);
+                    newAutomaticCategory.setResponse(response);
+                    newAutomaticCategory.setCategory(category);
 
-                automaticCategoryRepository.save(newAutomaticCategory);
+                    automaticCategoryRepository.save(newAutomaticCategory);
 
-                return newAutomaticCategory;
+                    return newAutomaticCategory;
+                }
             }
-
         }
-
         return null;
     }
 
@@ -72,10 +66,8 @@ public class AutomaticCategoryService {
 
         List<Category> categories = categoryRepository.findByIsDefault(Boolean.TRUE);
         for (Category c : categories) {
-            request+= "\"" + c.getDescription() + "\"\n";
-            System.out.println(c.getDescription());
+            request = request.concat("\n"+c.getDescription());
         }
-        System.out.println(request);
 
         return request;
     }

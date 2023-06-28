@@ -43,6 +43,17 @@ public class EntryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEntry);
     }
 
+    @PostMapping("/fast")
+    public ResponseEntity<?> fastEntry(@RequestBody Entry entry,  BindingResult result) {
+        entryValidator.validateFastEntry(entry, result);
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().body(result.getAllErrors());
+        }
+        Entry savedEntry = entryService.saveFastEntry(entry);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedEntry);
+
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateEntry(@PathVariable Long id, @RequestBody Entry entry, BindingResult result) {
         entryValidator.validate(entry, result);

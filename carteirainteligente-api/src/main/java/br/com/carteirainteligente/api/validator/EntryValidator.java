@@ -59,4 +59,29 @@ public class EntryValidator implements Validator {
             errors.rejectValue("paidDate", "entry.paid.date.mandatory", "Data de pagamento obrigatório");
         }
     }
+
+    public void validateFastEntry(Object obj, Errors errors) {
+        Entry entry = (Entry) obj;
+        if (entry.getUser() == null) {
+            errors.rejectValue("user", "entry.user.mandatory", "Usuário obrigatório");
+        } else if (entry.getUser().getId() == null) {
+            errors.rejectValue("user", "entry.user.id.mandatory", "Id usuário obrigatório");
+        } else if (userRepository.findById(entry.getUser().getId()).orElse(null) == null) {
+            errors.rejectValue("user", "entry.user.not.found", "Usuário não encontrado");
+        }
+        if (entry.getDescription() == null) {
+            errors.rejectValue("description", "entry.description.mandatory", "Descrição obrigatória");
+        }
+        if (entry.getPaidValue() == null) {
+            errors.rejectValue("paidValue", "entry.paid.value.mandatory", "Valor obrigatório");
+        } else if (entry.getPaidValue().compareTo(BigDecimal.ZERO)<0) {
+            errors.rejectValue("paidValue", "entry.paid.value.negative", "Valor não pode ser negativo");
+        }
+        if (entry.getDueDate() == null) {
+            errors.rejectValue("dueDate", "entry.due.date.mandatory", "Data de vencimento obrigatória");
+        }
+        if (entry.getPaidDate() == null) {
+            errors.rejectValue("dueDate", "entry.due.date.mandatory", "Data de vencimento obrigatória");
+        }
+    }
 }

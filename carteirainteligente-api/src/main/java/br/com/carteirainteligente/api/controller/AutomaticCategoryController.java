@@ -4,6 +4,7 @@ import br.com.carteirainteligente.api.model.AutomaticCategory;
 import br.com.carteirainteligente.api.service.AutomaticCategoryService;
 import br.com.carteirainteligente.api.validator.AutomaticCategoryValidator;
 import kong.unirest.HttpStatus;
+import kong.unirest.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -26,14 +27,17 @@ public class AutomaticCategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAutomaticCategory(@RequestBody String input, BindingResult result) {
+    public ResponseEntity<?> getAutomaticCategory(@RequestBody String inputJson, BindingResult result) {
         AutomaticCategory automaticCategoryInput = new AutomaticCategory();
-        automaticCategoryInput.setInput(input);
+        automaticCategoryInput.setInput(inputJson);
 
         automaticCategoryValidator.validate(automaticCategoryInput, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
+        JSONObject jsonObject = new JSONObject(inputJson);
+        String input = jsonObject.getString("inputJson");
+
         AutomaticCategory automaticCategory = automaticCategoryService.getAutomaticCategory(input);
         return automaticCategory == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(automaticCategory);
     }
