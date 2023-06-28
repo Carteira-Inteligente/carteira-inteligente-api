@@ -6,6 +6,7 @@ import br.com.carteirainteligente.api.repository.AutomaticCategoryRepository;
 import br.com.carteirainteligente.api.repository.CategoryRepository;
 import com.lilittlecat.chatgpt.offical.ChatGPT;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,9 @@ public class AutomaticCategoryService {
 
     @Autowired
     AutomaticCategoryRepository automaticCategoryRepository;
+
+    @Value("${chat.gpt.api.key}")
+    private String apiKey;
 
     @Autowired
     CategoryRepository categoryRepository;
@@ -37,7 +41,7 @@ public class AutomaticCategoryService {
         if (automaticCategory != null) {
             return automaticCategory;
         } else {
-            ChatGPT chatGPT = new ChatGPT("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");
+            ChatGPT chatGPT = new ChatGPT(apiKey);
             //String response = null;
             String response = chatGPT.ask(requestToAI(input));
             System.out.println(response); // will be "\n\nHello! How may I assist you today?"

@@ -1,7 +1,6 @@
 package br.com.carteirainteligente.api.validator;
 
 import br.com.carteirainteligente.api.model.AutomaticCategory;
-import br.com.carteirainteligente.api.model.Budget;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
