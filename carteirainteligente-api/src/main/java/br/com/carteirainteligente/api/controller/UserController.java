@@ -21,6 +21,11 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
+    @GetMapping ResponseEntity<String> bombou() {
+        String bombou = "Bombou";
+        return ResponseEntity.status(HttpStatus.CREATED).body(bombou);
+    }
+
     @GetMapping
     public ResponseEntity<List<User>> listUsers() {
         List<User> users = userService.listUsers();
