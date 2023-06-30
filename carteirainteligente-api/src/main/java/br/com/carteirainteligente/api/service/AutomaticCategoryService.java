@@ -44,7 +44,7 @@ public class AutomaticCategoryService {
             ChatGPT chatGPT = new ChatGPT(apiKey);
             //String response = null;
             String response = chatGPT.ask(requestToAI(input));
-            System.out.println(response);
+            //System.out.println(response);
 
             if (response != null && !response.equals("")) {
 
