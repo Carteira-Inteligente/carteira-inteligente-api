@@ -1,6 +1,7 @@
 package br.com.carteirainteligente.api.repository;
 
 import br.com.carteirainteligente.api.model.Category;
+import br.com.carteirainteligente.api.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     List<Category> findByDescription(String description);
 
+    List<Category> findByUser(User user);
 }

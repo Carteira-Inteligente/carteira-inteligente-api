@@ -1,8 +1,7 @@
 package br.com.carteirainteligente.api.validator;
 
-import br.com.carteirainteligente.api.model.Category;
 import br.com.carteirainteligente.api.model.User;
-import br.com.carteirainteligente.api.repository.UserRepository;
+import br.com.carteirainteligente.api.repository.*;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +16,18 @@ public class UserValidator implements Validator {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    EntryRepository entryRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
+
+    @Autowired
+    BudgetRepository budgetRepository;
+
+    @Autowired
+    PaymentTypeRepository paymentTypeRepository;
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -59,6 +70,25 @@ public class UserValidator implements Validator {
                     }
                 }
             }
+        }
+    }
+
+    public void validateDelete(Long id, Errors errors) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            errors.rejectValue("user", "user.dependency", "Usuário não encontrado");
+        }
+        if (!entryRepository.findByUser(user).isEmpty()) {
+            errors.rejectValue("id", "user.dependency", "Usuário vinculado a um lançamento");
+        }
+        if (categoryRepository.findByUser(user) != null) {
+            errors.rejectValue("id", "user.dependency", "Usuário vinculado a uma categoria");
+        }
+        if (budgetRepository.findByUser(user) != null) {
+            errors.rejectValue("id", "user.dependency", "Usuário vinculado a um orçamento");
+        }
+        if (paymentTypeRepository.findByUser(user) != null) {
+            errors.rejectValue("id", "user.dependency", "Usuário vinculado a um tipo de pagamento");
         }
     }
 

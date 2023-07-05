@@ -1,8 +1,7 @@
 package br.com.carteirainteligente.api.validator;
 
 import br.com.carteirainteligente.api.model.Category;
-import br.com.carteirainteligente.api.repository.CategoryRepository;
-import br.com.carteirainteligente.api.repository.UserRepository;
+import br.com.carteirainteligente.api.repository.*;
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +24,16 @@ public class CategoryValidator implements Validator {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    EntryRepository entryRepository;
+
+    @Autowired
+    AutomaticCategoryRepository automaticCategoryRepository;
+
+    @Autowired
+    BudgetRepository budgetRepository;
+
+
     @Override
     public void validate(Object obj, Errors errors) {
         Category category = (Category) obj;
@@ -41,6 +50,23 @@ public class CategoryValidator implements Validator {
         if (StringUtils.isBlank(category.getPathIcon())) {
             errors.rejectValue("icon", "category.icon.mandatory", "Ícone obrigatório");
         }
+    }
+
+    public void validateDelete(Long id, Errors errors) {
+        Category category = categoryRepository.findById(id).orElse(null);
+        if (category == null) {
+            errors.rejectValue("category", "category.dependency", "Categoria não encontrada");
+        }
+        if (entryRepository.findByCategory(category) != null) {
+            errors.rejectValue("id", "entry.dependency", "Categoria vinculada a um lançamento");
+        }
+        if (automaticCategoryRepository.findByCategory(category) != null) {
+            errors.rejectValue("id", "entry.dependency", "Categoria vinculada a uma Categoria Automática");
+        }
+        if (budgetRepository.findByCategory(category) != null) {
+            errors.rejectValue("id", "entry.dependency", "Categoria vinculada a um orçamento");
+        }
+
     }
 
     public void validateSaveAndUpdate(Object obj, Long id, Errors errors) {
