@@ -57,13 +57,13 @@ public class CategoryValidator implements Validator {
         if (category == null) {
             errors.rejectValue("category", "category.dependency", "Categoria não encontrada");
         }
-        if (entryRepository.findByCategory(category) != null) {
+        if (!entryRepository.findByCategory(category).isEmpty()) {
             errors.rejectValue("id", "entry.dependency", "Categoria vinculada a um lançamento");
         }
-        if (automaticCategoryRepository.findByCategory(category) != null) {
+        if (!automaticCategoryRepository.findByCategory(category).isEmpty()) {
             errors.rejectValue("id", "entry.dependency", "Categoria vinculada a uma Categoria Automática");
         }
-        if (budgetRepository.findByCategory(category) != null) {
+        if (!budgetRepository.findByCategory(category).isEmpty()) {
             errors.rejectValue("id", "entry.dependency", "Categoria vinculada a um orçamento");
         }
 

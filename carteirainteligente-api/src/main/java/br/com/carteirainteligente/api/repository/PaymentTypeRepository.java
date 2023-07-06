@@ -12,7 +12,7 @@ import java.util.List;
 public interface PaymentTypeRepository extends JpaRepository<PaymentType, Long> {
     PaymentType findTop1ByType(TypeEnum type);
 
-    PaymentType findByUser(User user);
+    List<PaymentType> findByUser(User user);
 
     List<PaymentType> findByDescriptionNotOrderByDescription(String description);
 

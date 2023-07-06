@@ -52,7 +52,7 @@ public class PaymentTypeValidator implements Validator {
         if (paymentType == null) {
             errors.rejectValue("paymentType", "payment.type.dependency", "Tipo de pagamento não encontrado");
         }
-        if (entryRepository.findByPaymentType(paymentType) != null) {
+        if (!entryRepository.findByPaymentType(paymentType).isEmpty()) {
             errors.rejectValue("id", "payment.type.dependency", "Tipo de pagamento vinculado a um lançamento");
         }
     }

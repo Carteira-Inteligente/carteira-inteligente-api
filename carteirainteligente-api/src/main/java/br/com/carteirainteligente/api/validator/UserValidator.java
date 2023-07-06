@@ -81,13 +81,13 @@ public class UserValidator implements Validator {
         if (!entryRepository.findByUser(user).isEmpty()) {
             errors.rejectValue("id", "user.dependency", "Usuário vinculado a um lançamento");
         }
-        if (categoryRepository.findByUser(user) != null) {
+        if (!categoryRepository.findByUser(user).isEmpty()) {
             errors.rejectValue("id", "user.dependency", "Usuário vinculado a uma categoria");
         }
-        if (budgetRepository.findByUser(user) != null) {
+        if (!budgetRepository.findByUser(user).isEmpty()) {
             errors.rejectValue("id", "user.dependency", "Usuário vinculado a um orçamento");
         }
-        if (paymentTypeRepository.findByUser(user) != null) {
+        if (!paymentTypeRepository.findByUser(user).isEmpty()) {
             errors.rejectValue("id", "user.dependency", "Usuário vinculado a um tipo de pagamento");
         }
     }
