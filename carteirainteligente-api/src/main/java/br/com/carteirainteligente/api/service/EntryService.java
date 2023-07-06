@@ -34,7 +34,7 @@ public class EntryService {
     PaymentTypeRepository paymentTypeRepository;
 
     public List<Entry> listEntries() {
-        return entryRepository.findAll();
+        return entryRepository.findAllByOrderByDueDateAsc();
     }
 
     public Entry getEntry(Long id) {

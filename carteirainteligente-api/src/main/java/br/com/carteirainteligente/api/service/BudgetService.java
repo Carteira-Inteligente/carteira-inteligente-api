@@ -24,7 +24,7 @@ public class BudgetService {
     CategoryRepository categoryRepository;
 
     public List<Budget> listBudgets() {
-        return budgetRepository.findAll();
+        return budgetRepository.findAllByOrderByDescriptionAsc();
     }
 
     public Budget getBudget(Long id) {

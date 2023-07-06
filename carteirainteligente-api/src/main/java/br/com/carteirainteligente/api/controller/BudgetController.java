@@ -43,7 +43,8 @@ public class BudgetController {
         try {
             savedBudget = budgetService.saveBudget(budget);
         } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("A categoria vinculada já possui um orçamento");
+            result.rejectValue("category", "budget.category.mandatory", "A categoria vinculada já possui um orçamento");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getAllErrors());
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBudget);
     }

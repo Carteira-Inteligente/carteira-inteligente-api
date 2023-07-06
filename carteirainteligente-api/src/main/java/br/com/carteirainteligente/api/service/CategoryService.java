@@ -19,7 +19,7 @@ public class CategoryService {
     UserRepository userRepository;
 
     public List<Category> listCategories() {
-        return categoryRepository.findAll();
+        return categoryRepository.findAllByOrderByDescriptionAsc();
     }
 
     public Category getCategory(Long id) {

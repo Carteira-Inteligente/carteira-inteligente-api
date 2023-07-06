@@ -19,7 +19,10 @@ public class PaymentTypeService {
     UserRepository userRepository;
 
     public List<PaymentType> listPaymentTypes() {
-        return paymentTypeRepository.findAll();
+        List<PaymentType> paymentTypes = paymentTypeRepository.findByDescription("Carteira");
+        paymentTypes.addAll(paymentTypeRepository.findByDescriptionNotOrderByDescription("Carteira"));
+
+        return paymentTypes;
     }
 
     public PaymentType getPaymentType(Long id) {
