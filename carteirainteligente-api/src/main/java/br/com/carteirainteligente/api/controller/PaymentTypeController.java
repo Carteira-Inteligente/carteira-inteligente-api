@@ -55,7 +55,7 @@ public class PaymentTypeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePaymentType(@PathVariable Long id, /*@RequestBody PaymentType paymentType, */BindingResult result) {
+    public ResponseEntity<?> deletePaymentType(@PathVariable Long id/*, @RequestBody PaymentType paymentType, BindingResult result*/) {
         /*paymentTypeValidator.validateDelete(id, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());

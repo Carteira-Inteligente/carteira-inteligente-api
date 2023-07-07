@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id, /*@RequestBody User user,*/BindingResult result) {
+    public ResponseEntity<?> deleteUser(@PathVariable Long id/*, @RequestBody User user,BindingResult result*/) {
         /*userValidator.validateDelete(id, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());

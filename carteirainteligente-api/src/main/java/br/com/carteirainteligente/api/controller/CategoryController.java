@@ -57,7 +57,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id, /*@RequestBody Category category,*/ BindingResult result) {
+    public ResponseEntity<?> deleteCategory(@PathVariable Long id/*, @RequestBody Category category, BindingResult result*/) {
         /*categoryValidator.validateDelete(id, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
