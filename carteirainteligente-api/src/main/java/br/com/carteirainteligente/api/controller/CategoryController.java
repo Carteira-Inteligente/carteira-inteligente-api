@@ -57,11 +57,11 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id, @RequestBody Category category, BindingResult result) {
-        categoryValidator.validateDelete(id, result);
+    public ResponseEntity<?> deleteCategory(@PathVariable Long id, /*@RequestBody Category category,*/ BindingResult result) {
+        /*categoryValidator.validateDelete(id, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
-        }
+        }*/
         Category deletedCategory = categoryService.deleteCategory(id);
         return deletedCategory == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(deletedCategory);
     }

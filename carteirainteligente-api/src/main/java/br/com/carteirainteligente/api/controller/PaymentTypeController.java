@@ -55,11 +55,11 @@ public class PaymentTypeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePaymentType(@PathVariable Long id, @RequestBody PaymentType paymentType, BindingResult result) {
-        paymentTypeValidator.validateDelete(id, result);
+    public ResponseEntity<?> deletePaymentType(@PathVariable Long id, /*@RequestBody PaymentType paymentType, */BindingResult result) {
+        /*paymentTypeValidator.validateDelete(id, result);
         if (result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
-        }
+        }*/
         PaymentType deletedPaymentType = paymentTypeService.deletePaymentType(id);
         return deletedPaymentType == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(deletedPaymentType);
     }
